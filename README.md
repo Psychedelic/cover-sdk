@@ -1,0 +1,1 @@
+- Cover SDK helps communicate with Cover canister easier
