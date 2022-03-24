@@ -1,0 +1,7 @@
+coverage
+public
+build
+factory.ts
+factory.d.ts
+lib
+dist
