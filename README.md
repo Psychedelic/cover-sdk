@@ -1,12 +1,16 @@
+# Cover SDK
+
 - Cover SDK is JavaScript and TypeScript library to work with Cover canister
-  ###Installation
+
+### Installation
+
 - Install from npm
 
 ```bash
     npm i cover-sdk
 ```
 
-###Import
+### Import
 
 - For CommonJS
 
@@ -20,7 +24,7 @@
     import {Cover} from "cover-sdk";
 ```
 
-###API
+### API
 
 - Construct a new Cover object with your identity or use anonymous identity with no parameters
 
