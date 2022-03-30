@@ -14,14 +14,14 @@
 
 - For CommonJS
 
-```
-    const {Cover} = require("cover-sdk");
+```javascript
+const {Cover} = require("cover-sdk");
 ```
 
 - For JavaScript Modules
 
-```
-    import {Cover} from "cover-sdk";
+```javascript
+import {Cover} from "cover-sdk";
 ```
 
 ### API
@@ -43,6 +43,7 @@ cover.verify(CANISTER_PRINCIPAL_ID);
 ```javascript
 //wasm hash in Cover verification
 cover.getCoverHash(CANISTER_PRINCIPAL_ID);
+
 //wasm hash on IC network
 cover.getICHash(CANISTER_PRINCIPAL_ID);
 ```
@@ -54,8 +55,10 @@ cover.getICHash(CANISTER_PRINCIPAL_ID);
 //items_per_page has Min value = 10 & Max = 120
 //page_index is start from 1
 cover.getAllVerifications({page_index, items_per_page});
+
 //get verification by canister id
 cover.getVerificationByCanisterId(CANISTER_PRINCIPAL_ID);
+
 //get verification statistics
 cover.getVerificationStats();
 ```
@@ -79,8 +82,10 @@ interface Pagination {
 ```javascript
 //get all build configs
 cover.getBuildConfigs();
+
 //get build config by canister id
 cover.getBuildConfigById(CANISTER_PRINCIPAL_ID);
+
 //delete a build config
 cover.deleteBuildConfig(CANISTER_PRINCIPAL_ID);
 ```
@@ -140,8 +145,10 @@ cover.buildWithConfig(CANISTER_ID, REPO_ACCESS_TOKEN, PUBLIC_KEY, SIGNATURE);
 ```javascript
 //error codes from the validator side(wrong format, missing arguments, internal error,...)
 ERR_XXX;
+
 //error codes from the sdk side(can't connect to the Validator, ...)
 SDK_ERR_XXX;
+
 //the error object will include these fields
 {
   code: string;
