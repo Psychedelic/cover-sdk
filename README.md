@@ -2,12 +2,19 @@
 
 - Cover SDK is JavaScript and TypeScript library to work with Cover canister
 
+### Contents Table
+
+- [Installation](#installation)
+- [Import](#import)
+- [API](#api)
+- [Example](#typescript-example)
+
 ### Installation
 
 - Install from npm
 
 ```bash
-    npm i cover-sdk
+npm i cover-sdk
 ```
 
 ### Import
@@ -155,4 +162,30 @@ SDK_ERR_XXX;
   message: string;
   details: unknown;
 }
+```
+
+### Typescript Example
+
+```typescript
+import {Cover} from "cover-sdk";
+import {Ed25519KeyIdentity} from "@dfinity/identity";
+import {Principal} from "@dfinity/principal";
+
+//create new identity
+const identity = Ed25519KeyIdentity.generate();
+
+//use indentity or no parameters for anonymous identity
+const cover = new Cover(identity);
+
+//verify a canister
+cover.verify(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai")).then(console.log);
+
+//get wasm hash from IC network
+cover.getICHash(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai")).then(console.log);
+
+//get wasm hash from Cover verification
+cover.getCoverHash(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai")).then(console.log);
+
+//get Cover verification by canister ID
+cover.getVerificationByCanisterId(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai")).then(console.log);
 ```
