@@ -14,9 +14,22 @@
     "lint": "eslint . --fix",
     "prepare": "husky install"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "internet computer",
+    "internet-computer",
+    "ic",
+    "dfx",
+    "canister",
+    "motoko",
+    "javascript",
+    "typescript",
+    "blockchain",
+    "crypto",
+    "api",
+    "sdk"
+  ],
+  "author": "Fleek Team <support@fleek.co>",
+  "license": "GPLv3",
   "files": [
     "lib/**/*"
   ],
