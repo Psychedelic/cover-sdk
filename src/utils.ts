@@ -1,5 +1,6 @@
-import {NoResponse, UnexpectedError} from "./type/errorResponse";
 import {AxiosError} from "axios";
+
+import {NoResponse, UnexpectedError} from "./type/errorResponse";
 
 export const errHandler = (error: AxiosError) => {
   if (error.response) {

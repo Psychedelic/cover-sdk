@@ -25,62 +25,29 @@
     "guard-for-in": ["error"],
     "no-param-reassign": ["error"],
     "prefer-rest-params": ["error"],
-    "spaced-comment": [
-      "error",
-      "always",
-      {
-        "exceptions": ["-"]
-      }
-    ],
+    "spaced-comment": ["error", "always", {"exceptions": ["-"]}],
     "prefer-arrow-callback": ["error"],
     "arrow-parens": ["error", "as-needed"],
     "no-confusing-arrow": ["error"],
     "arrow-body-style": ["error", "as-needed"],
     "prefer-template": ["error"],
-    "prefer-destructuring": [
-      "error",
-      {
-        "AssignmentExpression": {
-          "array": false
-        }
-      }
-    ],
-    "no-multiple-empty-lines": [
-      "error",
-      {
-        "max": 1,
-        "maxEOF": 0,
-        "maxBOF": 0
-      }
-    ],
-    "quotes": [
-      "error",
-      "double",
-      {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
-      }
-    ],
+    "prefer-destructuring": ["error", {"AssignmentExpression": {"array": false}}],
+    "no-multiple-empty-lines": ["error", {"max": 1, "maxEOF": 0, "maxBOF": 0}],
+    "quotes": ["error", "double", {"avoidEscape": true, "allowTemplateLiterals": true}],
     "linebreak-style": ["error", "unix"],
     "eol-last": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "semi": ["error", "always"],
-    "max-len": [
+    "max-len": ["error", {"code": 120, "ignoreComments": true, "ignoreTrailingComments": true}],
+    "import/order": [
       "error",
       {
-        "code": 120,
-        "ignoreComments": true,
-        "ignoreTrailingComments": true
-      }
-    ],
-    "sort-imports": [
-      "error",
-      {
-        "ignoreCase": false,
-        "ignoreDeclarationSort": false,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-        "allowSeparatedGroups": false
+        "groups": ["builtin", "external", "internal"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
       }
     ]
   },
