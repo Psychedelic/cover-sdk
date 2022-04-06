@@ -1,4 +1,7 @@
 import {ActorSubclass, AnonymousIdentity, Certificate, HttpAgent, Identity} from "@dfinity/agent";
+import {Principal} from "@dfinity/principal";
+
+import {createActor} from "./actor/coverActor";
 import {
   BuildConfig,
   ManualReply,
@@ -9,11 +12,9 @@ import {
   Verification,
   _SERVICE
 } from "./actor/factory.d";
-import {Principal} from "@dfinity/principal";
 import {config} from "./config";
-import {createActor} from "./actor/coverActor";
-import {errHandler} from "./utils";
 import {validatorAxios} from "./customAxios";
+import {errHandler} from "./utils";
 
 export class Cover {
   private readonly identity: Identity;
