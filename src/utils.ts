@@ -1,8 +1,8 @@
-import {AxiosError} from "axios";
-import {PublicKey} from "./type/publicKey";
 import {SignIdentity} from "@dfinity/agent";
+import {AxiosError} from "axios";
 
 import {NoResponse, UnexpectedError} from "./type/errorResponse";
+import {PublicKey} from "./type/publicKey";
 
 export const errHandler = (error: AxiosError) => {
   if (error.response) {

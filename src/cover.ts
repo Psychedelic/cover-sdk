@@ -1,3 +1,7 @@
+import {ActorSubclass, Certificate, HttpAgent, SignIdentity} from "@dfinity/agent";
+import {Principal} from "@dfinity/principal";
+
+import {createActor} from "./actor/coverActor";
 import {
   ManualReply as ActivitiesPagination,
   BuildConfig,
@@ -7,14 +11,10 @@ import {
   ManualReply_1 as VerificationsPagination,
   _SERVICE
 } from "./actor/factory.d";
-import {ActorSubclass, Certificate, HttpAgent, SignIdentity} from "@dfinity/agent";
-import {errHandler, getPublicKey, sign} from "./utils";
-
-import {Principal} from "@dfinity/principal";
-import {buildConfigRequest} from "./type/buildConfigRequest";
 import {config} from "./config";
-import {createActor} from "./actor/coverActor";
 import {validatorAxios} from "./customAxios";
+import {buildConfigRequest} from "./type/buildConfigRequest";
+import {errHandler, getPublicKey, sign} from "./utils";
 
 export class Cover {
   private readonly identity: SignIdentity;
