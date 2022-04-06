@@ -36,38 +36,40 @@ import {Cover} from "cover-sdk";
 - Construct a new Cover object with your identity
 
 ```javascript
-const cover = new Cover(IDENTITY);
+const cover = new Cover(identity: SignIdentity);
 ```
 
 - Verify a canister
 
-```javascript
-cover.verify(CANISTER_PRINCIPAL_ID);
+```typescript
+cover.verify(canisterId: Principal): Promise<boolean>;
 ```
 
 - Get wasm hash
 
 ```javascript
-//wasm hash in Cover verification
-cover.getCoverHash(CANISTER_PRINCIPAL_ID);
+// wasm hash in Cover verification
+cover.getCoverHash(canisterId: Principal): Promise<string>;
 
-//wasm hash on IC network
-cover.getICHash(CANISTER_PRINCIPAL_ID);
+// wasm hash on IC network
+cover.getICHash(canisterId: Principal): Promise<string>;
 ```
 
 - Get Cover verification
 
 ```javascript
-//provide a pagination info to get all verifications
-//items_per_page has Min value = 10 & Max = 120
-//page_index is start from 1
-cover.getAllVerifications({page_index, items_per_page});
+// provide a pagination info to get all verifications
+// PaginationInfo {
+//   items_per_page has Min value = 10 & Max = 120
+//   page_index is start from 1
+// }
+cover.getAllVerifications(paginationInfo: PaginationInfo): Promise<VerificationsPagination>;
 
-//get verification by canister id
-cover.getVerificationByCanisterId(CANISTER_PRINCIPAL_ID);
+// get verification by canister id
+cover.getVerificationByCanisterId(canisterId: Principal): Promise<Verification | undefined>;
 
-//get verification statistics
-cover.getVerificationStats();
+// get verification statistics
+cover.getVerificationStats(): Promise<Stats>;
 ```
 
 - APIs with pagination info parameter will return an object like this
@@ -84,72 +86,64 @@ interface Pagination {
 }
 ```
 
-- Interact with build configs of given identity (the identity passed in the Cover constructor).
+- Interact with build configs of given identity (the identity passed in the Cover constructor)
 
 ```javascript
-//get all build configs
-cover.getBuildConfigs();
+// get all build configs
+cover.getBuildConfigs(): Promise<Array<BuildConfig>>;
 
-//get build config by canister id
-cover.getBuildConfigById(CANISTER_PRINCIPAL_ID);
+// get build config by canister id
+cover.getBuildConfigById(canisterId: Principal): Promise<BuildConfig | undefined>;
 
-//delete a build config
-cover.deleteBuildConfig(CANISTER_PRINCIPAL_ID);
+// delete a build config
+cover.deleteBuildConfig(canisterId: Principal): Promise<void>;
 ```
 
 - Get recent activities from Cover
 
 ```javascript
-//provide a pagination info to get activities
-//items_per_page has Min value = 10 & Max = 120
-//page_index is start from 1
-cover.getActivities({page_index, items_per_page});
+// provide a pagination info to get activities
+// PaginationInfo {
+//   items_per_page has Min value = 10 & Max = 120
+//   page_index is start from 1
+// }
+cover.getActivities(paginationInfo: PaginationInfo): Promise<ActivitiesPagination>;
 ```
 
 - Interact with **_Cover Validator_**, more info about the validator and the parameters used below, see [here](https://github.com/Psychedelic/cover-validator)
 - Cover SDK will get public key and signature from your identity and send to Cover Validator
 
 ```javascript
-//save a build config
-cover.saveBuildConfig({
-  owner_id,
-  canister_id,
-  canister_name,
-  repo_url,
-  commit_hash,
-  dfx_version,
-  rust_version,
-  optimize_count,
-  repo_access_token
-});
+// save a build config
+cover.saveBuildConfig(buildConfig: buildConfigRequest): Promise<void>;
 
-//build a config
-cover.build({
-  owner_id,
-  canister_id,
-  canister_name,
-  repo_url,
-  commit_hash,
-  dfx_version,
-  rust_version,
-  optimize_count,
-  repo_access_token
-});
+// build a config
+cover.build(buildConfig: buildConfigRequest): Promise<void>;
 
-//build a saved config
-cover.buildWithConfig(CANISTER_ID, REPO_ACCESS_TOKEN, OWNER_ID);
+// build a saved config
+cover.buildWithConfig(canisterId: string, repoAccessToken: string, ownerId: string): Promise<void>;
+```
+
+- Get public key and sign a signature with your identity and current timestamp
+
+```typescript
+// get public key
+getPublicKey(identity: SignIdentity): string;
+
+// sign a signature, return a hex string
+sign(identity: SignIdentity, timestamp: number): Promise<string>;
 ```
 
 - Error code with **_Validator's APIs_** above
 
 ```typescript
-//error codes from the validator side(wrong format, missing arguments, internal error,...)
+// error codes from the validator side(wrong format, missing arguments, internal error,...)
 ERR_XXX;
 
-//error codes from the sdk side(can't connect to the Validator, ...)
+// error codes from the sdk side(can't connect to the Validator, ...)
 SDK_ERR_XXX;
 
-//the error object will include these fields
+// the error object will include these fields
 {
   code: string;
   message: string;
@@ -160,24 +154,32 @@ SDK_ERR_XXX;
 ### Typescript Example
 
 ```typescript
-import {Cover} from "cover-sdk";
+import {Cover, getPublicKey, sign} from "cover-sdk";
 import {Ed25519KeyIdentity} from "@dfinity/identity";
 import {Principal} from "@dfinity/principal";
+import {SignIdentity} from "@dfinity/agent";
 
-//create new identity
-const identity = Ed25519KeyIdentity.generate();
+// create new identity
+const identity = Ed25519KeyIdentity.generate() as SignIdentity;
 
 const cover = new Cover(identity);
 
-//verify a canister
-cover.verify(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai")).then(console.log);
+// verify a canister
+const isVerified = await cover.verify(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai"));
 
-//get wasm hash from IC network
-cover.getICHash(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai")).then(console.log);
+// get wasm hash from IC network
+const icHash = await cover.getICHash(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai"));
 
-//get wasm hash from Cover verification
-cover.getCoverHash(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai")).then(console.log);
+// get wasm hash from Cover verification
+const coverHash = await cover.getCoverHash(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai"));
 
-//get Cover verification by canister ID
-cover.getVerificationByCanisterId(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai")).then(console.log);
+// get Cover verification by canister ID
+const verification = await cover.getVerificationByCanisterId(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai"));
+
+// get public key
+const publicKey = getPublicKey(identity);
+
+// sign a signature
+const timestamp = new Date().getTime();
+const signature = await sign(identity, timestamp);
 ```
