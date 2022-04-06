@@ -33,7 +33,7 @@ import {Cover} from "cover-sdk";
 
 ### API
 
-- Construct a new Cover object with your identity or use anonymous identity with no parameters
+- Construct a new Cover object with your identity
 
 ```javascript
 const cover = new Cover(IDENTITY);
@@ -107,49 +107,42 @@ cover.getActivities({page_index, items_per_page});
 ```
 
 - Interact with **_Cover Validator_**, more info about the validator and the parameters used below, see [here](https://github.com/Psychedelic/cover-validator)
+- Cover SDK will get public key and signature from your identity and send to Cover Validator
 
 ```javascript
 //save a build config
-cover.saveBuildConfig(
-  {
-    owner_id,
-    canister_id,
-    canister_name,
-    repo_url,
-    commit_hash,
-    dfx_version,
-    rust_version,
-    optimize_count
-  },
-  REPO_ACCESS_TOKEN,
-  PUBLIC_KEY,
-  SIGNATURE
-);
+cover.saveBuildConfig({
+  owner_id,
+  canister_id,
+  canister_name,
+  repo_url,
+  commit_hash,
+  dfx_version,
+  rust_version,
+  optimize_count,
+  repo_access_token
+});
 
 //build a config
-cover.build(
-  {
-    owner_id,
-    canister_id,
-    canister_name,
-    repo_url,
-    commit_hash,
-    dfx_version,
-    rust_version,
-    optimize_count
-  },
-  REPO_ACCESS_TOKEN,
-  PUBLIC_KEY,
-  SIGNATURE
-);
+cover.build({
+  owner_id,
+  canister_id,
+  canister_name,
+  repo_url,
+  commit_hash,
+  dfx_version,
+  rust_version,
+  optimize_count,
+  repo_access_token
+});
 
 //build a saved config
-cover.buildWithConfig(CANISTER_ID, REPO_ACCESS_TOKEN, PUBLIC_KEY, SIGNATURE);
+cover.buildWithConfig(CANISTER_ID, REPO_ACCESS_TOKEN, OWNER_ID);
 ```
 
 - Error code with **_Validator's APIs_** above
 
-```javascript
+```typescript
 //error codes from the validator side(wrong format, missing arguments, internal error,...)
 ERR_XXX;
 
@@ -174,7 +167,6 @@ import {Principal} from "@dfinity/principal";
 //create new identity
 const identity = Ed25519KeyIdentity.generate();
 
-//use indentity or no parameters for anonymous identity
 const cover = new Cover(identity);
 
 //verify a canister
