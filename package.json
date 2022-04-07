@@ -1,9 +1,14 @@
 {
   "name": "@psychedelic/cover",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "Cover Software Development Kit",
   "main": "./lib/cjs/index",
   "module": "./lib/esm/index",
+  "homepage": "https://covercode.ooo/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Psychedelic/cover-sdk"
+  },
   "scripts": {
     "build-cjs": "tsc --outdir lib/cjs -t es2015 -m commonjs",
     "build-esm": "tsc --outdir lib/esm -t es2015 -m es2020",
