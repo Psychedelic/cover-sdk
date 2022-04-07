@@ -14,7 +14,7 @@
 - Install from npm
 
 ```bash
-npm i cover-sdk
+npm i @psychedelic/cover
 ```
 
 ### Import
@@ -22,13 +22,13 @@ npm i cover-sdk
 - For CommonJS
 
 ```javascript
-const {Cover} = require("cover-sdk");
+const {Cover} = require("@psychedelic/cover");
 ```
 
 - For JavaScript Modules
 
 ```javascript
-import {Cover} from "cover-sdk";
+import {Cover} from "@psychedelic/cover";
 ```
 
 ### API
@@ -153,8 +153,10 @@ SDK_ERR_XXX;
 
 ### Typescript Example
 
+Example extract identity from PEM using [SDK](https://github.com/Psychedelic/dfx-key/blob/main/cover-sdk.js)
+
 ```typescript
-import {Cover, getPublicKey, sign} from "cover-sdk";
+import {Cover, getPublicKey, sign} from "@psychedelic/cover";
 import {Ed25519KeyIdentity} from "@dfinity/identity";
 import {Principal} from "@dfinity/principal";
 import {SignIdentity} from "@dfinity/agent";

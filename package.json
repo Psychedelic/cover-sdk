@@ -1,5 +1,5 @@
 {
-  "name": "cover-sdk",
+  "name": "@psychedelic/cover",
   "version": "0.0.1",
   "description": "",
   "main": "./lib/cjs/index",
