@@ -1,15 +1,27 @@
-# Cover SDK
+![](https://docs.covercode.ooo/overview/imgs/mainn.png)
+# ✅ Cover SDK
 
-- Cover SDK is JavaScript and TypeScript library to work with Cover canister
+Cover SDK is JavaScript and TypeScript client library for integrating the Cover protocol into applications.
 
-### Contents Table
+Cover's SDK makes it easy to:
+
+- Manage build configs
+- Submit new builds
+- Check a canister's verified status
+- Query data from the Cover canister
+
+... And more!
+
+<br>
+
+## Contents Table
 
 - [Installation](#installation)
 - [Import](#import)
 - [API](#api)
 - [Example](#typescript-example)
 
-### Installation
+## Installation
 
 - Install from npm
 
@@ -17,7 +29,7 @@
 npm i @psychedelic/cover
 ```
 
-### Import
+## Import
 
 - For CommonJS
 
@@ -31,7 +43,7 @@ const {Cover} = require("@psychedelic/cover");
 import {Cover} from "@psychedelic/cover";
 ```
 
-### API
+## API
 
 - Construct a new Cover object with your identity
 
