@@ -1,14 +1,15 @@
 import {ActorSubclass, Certificate, HttpAgent, SignIdentity} from "@dfinity/agent";
 import {Principal} from "@dfinity/principal";
+import fetch from "isomorphic-fetch";
 
 import {createActor} from "./actor/coverActor";
 import {
-  ManualReply as ActivitiesPagination,
+  ActivitiesPagination,
   BuildConfig,
   PaginationInfo,
   Stats,
   Verification,
-  ManualReply_1 as VerificationsPagination,
+  VerificationsPagination,
   _SERVICE
 } from "./actor/factory.d";
 import {config} from "./config";

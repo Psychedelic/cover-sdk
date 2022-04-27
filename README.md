@@ -1,4 +1,5 @@
 ![](https://docs.covercode.ooo/overview/imgs/mainn.png)
+
 # ✅ Cover SDK
 
 Cover SDK is JavaScript and TypeScript client library for integrating the Cover protocol into applications.

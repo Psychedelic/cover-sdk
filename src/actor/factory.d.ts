@@ -31,7 +31,7 @@ export interface Config {
   'builder' : [] | [Array<Principal>],
 }
 export type Error = { 'BuildInProgress' : null };
-export interface ManualReply {
+export interface ActivitiesPagination {
   'page_index' : bigint,
   'data' : Array<Activity>,
   'total_pages' : bigint,
@@ -40,7 +40,7 @@ export interface ManualReply {
   'items_per_page' : bigint,
   'is_last_page' : boolean,
 }
-export interface ManualReply_1 {
+export interface VerificationsPagination {
   'page_index' : bigint,
   'data' : Array<Verification>,
   'total_pages' : bigint,
@@ -123,7 +123,7 @@ export interface _SERVICE {
   'deleteBuildConfig' : (arg_0: Principal) => Promise<undefined>,
   'deleteBuilder' : (arg_0: Principal) => Promise<undefined>,
   'deleteValidator' : (arg_0: Principal) => Promise<undefined>,
-  'getActivities' : (arg_0: PaginationInfo) => Promise<ManualReply>,
+  'getActivities' : (arg_0: PaginationInfo) => Promise<ActivitiesPagination>,
   'getAdmins' : () => Promise<Array<Principal>>,
   'getBuildConfigById' : (arg_0: Principal) => Promise<[] | [BuildConfig]>,
   'getBuildConfigValidator' : (arg_0: BuildConfigInfo) => Promise<
@@ -135,7 +135,7 @@ export interface _SERVICE {
   'getVerificationByCanisterId' : (arg_0: Principal) => Promise<
       [] | [Verification]
     >,
-  'getVerifications' : (arg_0: PaginationInfo) => Promise<ManualReply_1>,
+  'getVerifications' : (arg_0: PaginationInfo) => Promise<VerificationsPagination>,
   'getVerificationsStats' : () => Promise<Stats>,
   'registerVerification' : (arg_0: RegisterVerification) => Promise<Result>,
   'saveBuildConfig' : (arg_0: SaveBuildConfig) => Promise<undefined>,
