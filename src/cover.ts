@@ -11,7 +11,7 @@ import {
   Verification,
   VerificationsPagination,
   _SERVICE
-} from "./actor/factory.d";
+} from "./actor/factoryType";
 import {config} from "./config";
 import {validatorAxios} from "./customAxios";
 import {buildConfigRequest} from "./type/buildConfigRequest";

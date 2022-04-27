@@ -3,7 +3,7 @@ import fetch from "isomorphic-fetch";
 
 import {config} from "../config";
 import {idlFactory} from "./factory";
-import {_SERVICE as Service} from "./factory.d";
+import {_SERVICE as Service} from "./factoryType";
 
 export function createActor(identity: Identity): ActorSubclass<Service> {
   const agent = new HttpAgent({host: config.icHost, fetch, identity});

@@ -2,6 +2,6 @@ coverage
 public
 build
 factory.ts
-factory.d.ts
+factoryType.ts
 lib
 dist

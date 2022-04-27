@@ -1,3 +1,3 @@
 export * from "./cover";
-export * from "./actor/factory.d";
+export * from "./actor/factoryType";
 export {sign, getPublicKey} from "./utils";
