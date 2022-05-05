@@ -11,7 +11,7 @@ export interface BuildRequest {
 }
 
 export interface AnonymousBuildRequest extends BuildRequest {
-  timestamp: string;
+  timestamp: number;
   signature: string;
   public_key: string;
 }
