@@ -14,7 +14,7 @@ import {
 } from "./actor/factoryType";
 import {config} from "./config";
 import {validatorAxios} from "./customAxios";
-import {buildConfigRequest} from "./type/buildConfigRequest";
+import {AnonymousBuildRequest, BuildRequest} from "./type/buildRequest";
 import {errHandler, getPublicKey, sign} from "./utils";
 
 export class Cover {
@@ -27,10 +27,9 @@ export class Cover {
   }
 
   async verify(canisterId: Principal): Promise<boolean> {
-    const coverHash = await this.getCoverHash(canisterId);
-    const icHash = await this.getICHash(canisterId);
+    const [coverHash, icHash] = await Promise.all([this.getCoverHash(canisterId), this.getICHash(canisterId)]);
 
-    return icHash === coverHash;
+    return coverHash === icHash;
   }
 
   async getAllVerifications(paginationInfo: PaginationInfo): Promise<VerificationsPagination> {
@@ -85,7 +84,7 @@ export class Cover {
     return this.coverActor.deleteBuildConfig(canisterId);
   }
 
-  async saveBuildConfig(buildConfig: buildConfigRequest): Promise<void> {
+  async saveBuildConfig(buildConfig: BuildRequest): Promise<void> {
     const publicKey = getPublicKey(this.identity);
     const timestamp = new Date().getTime();
     const signature = await sign(this.identity, timestamp);
@@ -108,7 +107,7 @@ export class Cover {
       .catch(errHandler);
   }
 
-  async build(buildConfig: buildConfigRequest): Promise<void> {
+  async build(buildConfig: BuildRequest): Promise<void> {
     const publicKey = getPublicKey(this.identity);
     const timestamp = new Date().getTime();
     const signature = await sign(this.identity, timestamp);
@@ -126,6 +125,26 @@ export class Cover {
         publicKey,
         signature,
         timestamp
+      })
+      .then(() => undefined)
+      .catch(errHandler);
+  }
+
+  static async anonymousBuild(buildConfig: AnonymousBuildRequest): Promise<void> {
+    return validatorAxios
+      .post(`${config.validatorUrl}/build`, {
+        canisterId: buildConfig.canister_id,
+        canisterName: buildConfig.canister_name,
+        repoUrl: buildConfig.repo_url,
+        commitHash: buildConfig.commit_hash,
+        dfxVersion: buildConfig.dfx_version,
+        rustVersion: buildConfig.rust_version || "",
+        optimizeCount: buildConfig.optimize_count,
+        ownerId: buildConfig.owner_id,
+        repoAccessToken: buildConfig.repo_access_token,
+        publicKey: buildConfig.public_key,
+        signature: buildConfig.signature,
+        timestamp: buildConfig.timestamp
       })
       .then(() => undefined)
       .catch(errHandler);
