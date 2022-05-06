@@ -12,18 +12,26 @@ import {
   VerificationsPagination,
   _SERVICE
 } from "./actor/factoryType";
-import {config} from "./config";
+import {developmentConfig, productionConfig} from "./config";
 import {validatorAxios} from "./customAxios";
 import {AnonymousBuildRequest, BuildRequest} from "./type/buildRequest";
 import {errHandler, getPublicKey, sign} from "./utils";
 
+interface CoverConfig {
+  isDevelopment: boolean;
+}
+
 export class Cover {
   private readonly identity: SignIdentity;
+  private readonly config = productionConfig;
   private coverActor: ActorSubclass<_SERVICE>;
 
-  constructor(identity: SignIdentity) {
+  constructor(identity: SignIdentity, config?: CoverConfig) {
+    if (config?.isDevelopment) {
+      this.config = developmentConfig;
+    }
     this.identity = identity;
-    this.coverActor = createActor(this.identity);
+    this.coverActor = createActor(this.identity, this.config);
   }
 
   async verify(canisterId: Principal): Promise<boolean> {
@@ -54,7 +62,7 @@ export class Cover {
   }
 
   async getICHash(canisterId: Principal): Promise<string> {
-    const agent = new HttpAgent({host: config.icHost, fetch});
+    const agent = new HttpAgent({host: this.config.icHost, fetch});
 
     const path = [
       new TextEncoder().encode("canister"),
@@ -89,7 +97,7 @@ export class Cover {
     const timestamp = new Date().getTime();
     const signature = await sign(this.identity, timestamp);
     return validatorAxios
-      .post(`${config.validatorUrl}/save-build-config`, {
+      .post(`${this.config.validatorUrl}/save-build-config`, {
         canisterId: buildConfig.canister_id,
         canisterName: buildConfig.canister_name,
         repoUrl: buildConfig.repo_url,
@@ -112,7 +120,7 @@ export class Cover {
     const timestamp = new Date().getTime();
     const signature = await sign(this.identity, timestamp);
     return validatorAxios
-      .post(`${config.validatorUrl}/build`, {
+      .post(`${this.config.validatorUrl}/build`, {
         canisterId: buildConfig.canister_id,
         canisterName: buildConfig.canister_name,
         repoUrl: buildConfig.repo_url,
@@ -130,7 +138,11 @@ export class Cover {
       .catch(errHandler);
   }
 
-  static async anonymousBuild(buildConfig: AnonymousBuildRequest): Promise<void> {
+  static async anonymousBuild(buildConfig: AnonymousBuildRequest, coverConfig?: CoverConfig): Promise<void> {
+    let config = productionConfig;
+    if (coverConfig?.isDevelopment) {
+      config = developmentConfig;
+    }
     return validatorAxios
       .post(`${config.validatorUrl}/build`, {
         canisterId: buildConfig.canister_id,
@@ -155,7 +167,7 @@ export class Cover {
     const timestamp = new Date().getTime();
     const signature = await sign(this.identity, timestamp);
     return validatorAxios
-      .post(`${config.validatorUrl}/build-with-config`, {
+      .post(`${this.config.validatorUrl}/build-with-config`, {
         canisterId,
         repoAccessToken,
         publicKey,

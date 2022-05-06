@@ -1,15 +1,19 @@
-interface Config {
+export interface EnvConfig {
   coverCanisterId: string;
   icHost: string;
   validatorUrl: string;
 }
 
-const coverCanisterId = "iftvq-niaaa-aaaai-qasga-cai";
-
 const icHost = "https://ic0.app";
 
-const validatorUrl = "https://h969vfa2pa.execute-api.us-east-1.amazonaws.com/production";
+export const developmentConfig: EnvConfig = {
+  coverCanisterId: "3x7en-uqaaa-aaaai-abgca-cai",
+  icHost,
+  validatorUrl: "https://pxy2xvb1k3.execute-api.us-east-1.amazonaws.com/development"
+};
 
-const config: Config = {coverCanisterId, icHost, validatorUrl};
-
-export {config};
+export const productionConfig: EnvConfig = {
+  coverCanisterId: "iftvq-niaaa-aaaai-qasga-cai",
+  icHost,
+  validatorUrl: "https://h969vfa2pa.execute-api.us-east-1.amazonaws.com/production"
+};
