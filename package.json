@@ -1,6 +1,6 @@
 {
   "name": "@psychedelic/cover",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Cover Software Development Kit",
   "main": "./lib/cjs/index",
   "module": "./lib/esm/index",
@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "@dfinity/agent": "^0.11.1",
+    "@dfinity/candid": "^0.11.1",
     "@dfinity/identity": "^0.11.1",
     "@dfinity/principal": "^0.11.1",
     "axios": "^0.26.1",
