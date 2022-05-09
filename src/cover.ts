@@ -61,7 +61,7 @@ export class Cover {
     return verification.wasm_hash[0] as string;
   }
 
-  async getICHash(canisterId: Principal): Promise<string> {
+  async getICHash(canisterId: Principal): Promise<string | undefined> {
     const agent = new HttpAgent({host: this.config.icHost, fetch});
 
     const path = [
@@ -76,7 +76,7 @@ export class Cover {
     const cert = new Certificate(res, agent);
     await cert.verify();
     const hashBuffer = cert.lookup(path);
-    return `0x${Buffer.from(hashBuffer as ArrayBuffer).toString("hex")}`;
+    return hashBuffer && `0x${Buffer.from(hashBuffer as ArrayBuffer).toString("hex")}`;
   }
 
   // return caller's build config by canister ID
