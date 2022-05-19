@@ -62,10 +62,10 @@ cover.verify(canisterId: Principal): Promise<boolean>;
 
 ```javascript
 // wasm hash in Cover verification
-cover.getCoverHash(canisterId: Principal): Promise<string>;
+cover.getCoverHash(canisterId: Principal): Promise<string | undefined>;
 
 // wasm hash on IC network
-cover.getICHash(canisterId: Principal): Promise<string>;
+cover.getICHash(canisterId: Principal): Promise<string | undefined>;
 ```
 
 - Get Cover verification
@@ -135,6 +135,9 @@ cover.build(buildConfig: buildConfigRequest): Promise<void>;
 
 // build a saved config
 cover.buildWithConfig(canisterId: string, repoAccessToken: string, ownerId: string): Promise<void>;
+
+// build a config without create a Cover instance
+Cover.anonymousBuild(buildRequest: AnonymousBuildRequest);
 ```
 
 - Get public key and sign a signature with your identity and current timestamp
