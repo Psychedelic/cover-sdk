@@ -37,7 +37,7 @@ export class Cover {
   async verify(canisterId: Principal): Promise<boolean> {
     const [coverHash, icHash] = await Promise.all([this.getCoverHash(canisterId), this.getICHash(canisterId)]);
 
-    return coverHash === icHash;
+    return coverHash !== undefined && coverHash === icHash;
   }
 
   async getAllVerifications(paginationInfo: PaginationInfo): Promise<VerificationsPagination> {
@@ -52,10 +52,10 @@ export class Cover {
     return this.coverActor.getVerificationByCanisterId(canisterId).then(verification => verification[0]);
   }
 
-  async getCoverHash(canisterId: Principal): Promise<string> {
+  async getCoverHash(canisterId: Principal): Promise<string | undefined> {
     const verification = await this.getVerificationByCanisterId(canisterId);
     if (!verification || verification.wasm_hash.length < 1) {
-      return "";
+      return undefined;
     }
 
     return verification.wasm_hash[0] as string;
