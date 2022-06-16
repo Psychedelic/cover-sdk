@@ -1,21 +1,21 @@
-import {ActorSubclass, Certificate, HttpAgent, SignIdentity} from "@dfinity/agent";
-import {Principal} from "@dfinity/principal";
-import fetch from "isomorphic-fetch";
+import {ActorSubclass, Certificate, HttpAgent, SignIdentity} from '@dfinity/agent';
+import {Principal} from '@dfinity/principal';
+import fetch from 'isomorphic-fetch';
 
-import {createActor} from "./actor/coverActor";
+import {createActor} from './actor/coverActor';
 import {
+  _SERVICE,
   ActivitiesPagination,
   BuildConfig,
   PaginationInfo,
   Stats,
   Verification,
-  VerificationsPagination,
-  _SERVICE
-} from "./actor/factoryType";
-import {developmentConfig, productionConfig} from "./config";
-import {validatorAxios} from "./customAxios";
-import {AnonymousBuildRequest, BuildRequest} from "./type/buildRequest";
-import {errHandler, getPublicKey, sign} from "./utils";
+  VerificationsPagination
+} from './actor/factoryType';
+import {developmentConfig, productionConfig} from './config';
+import {validatorAxios} from './customAxios';
+import {AnonymousBuildRequest, BuildRequest} from './type/buildRequest';
+import {errHandler, getPublicKey, sign} from './utils';
 
 interface CoverConfig {
   isDevelopment: boolean;
@@ -23,7 +23,9 @@ interface CoverConfig {
 
 export class Cover {
   private readonly identity: SignIdentity;
+
   private readonly config = productionConfig;
+
   private coverActor: ActorSubclass<_SERVICE>;
 
   constructor(identity: SignIdentity, config?: CoverConfig) {
@@ -65,9 +67,9 @@ export class Cover {
     const agent = new HttpAgent({host: this.config.icHost, fetch});
 
     const path = [
-      new TextEncoder().encode("canister"),
+      new TextEncoder().encode('canister'),
       canisterId.toUint8Array(),
-      new TextEncoder().encode("module_hash")
+      new TextEncoder().encode('module_hash')
     ];
 
     const res = await agent.readState(canisterId, {
@@ -76,10 +78,10 @@ export class Cover {
     const cert = new Certificate(res, agent);
     await cert.verify();
     const hashBuffer = cert.lookup(path);
-    return hashBuffer && `0x${Buffer.from(hashBuffer as ArrayBuffer).toString("hex")}`;
+    return hashBuffer && `0x${Buffer.from(hashBuffer as ArrayBuffer).toString('hex')}`;
   }
 
-  // return caller's build config by canister ID
+  // Return caller's build config by canister ID
   async getBuildConfigById(canisterId: Principal): Promise<BuildConfig | undefined> {
     return this.coverActor.getBuildConfigById(canisterId).then(config => config[0]);
   }
@@ -103,7 +105,7 @@ export class Cover {
         repoUrl: buildConfig.repo_url,
         commitHash: buildConfig.commit_hash,
         dfxVersion: buildConfig.dfx_version,
-        rustVersion: buildConfig.rust_version || "",
+        rustVersion: buildConfig.rust_version || '',
         optimizeCount: buildConfig.optimize_count,
         ownerId: buildConfig.owner_id,
         repoAccessToken: buildConfig.repo_access_token,
@@ -126,7 +128,7 @@ export class Cover {
         repoUrl: buildConfig.repo_url,
         commitHash: buildConfig.commit_hash,
         dfxVersion: buildConfig.dfx_version,
-        rustVersion: buildConfig.rust_version || "",
+        rustVersion: buildConfig.rust_version || '',
         optimizeCount: buildConfig.optimize_count,
         ownerId: buildConfig.owner_id,
         repoAccessToken: buildConfig.repo_access_token,
@@ -150,7 +152,7 @@ export class Cover {
         repoUrl: buildConfig.repo_url,
         commitHash: buildConfig.commit_hash,
         dfxVersion: buildConfig.dfx_version,
-        rustVersion: buildConfig.rust_version || "",
+        rustVersion: buildConfig.rust_version || '',
         optimizeCount: buildConfig.optimize_count,
         ownerId: buildConfig.owner_id,
         repoAccessToken: buildConfig.repo_access_token,
