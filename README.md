@@ -35,13 +35,13 @@ npm i @psychedelic/cover
 - For CommonJS
 
 ```javascript
-const {Cover} = require("@psychedelic/cover");
+const {Cover} = require('@psychedelic/cover');
 ```
 
 - For JavaScript Modules
 
 ```javascript
-import {Cover} from "@psychedelic/cover";
+import {Cover} from '@psychedelic/cover';
 ```
 
 ## API
@@ -172,10 +172,10 @@ SDK_ERR_XXX;
 Example extract identity from PEM using [SDK](https://github.com/Psychedelic/dfx-key/blob/main/cover-sdk.js)
 
 ```typescript
-import {Cover, getPublicKey, sign} from "@psychedelic/cover";
-import {Ed25519KeyIdentity} from "@dfinity/identity";
-import {Principal} from "@dfinity/principal";
-import {SignIdentity} from "@dfinity/agent";
+import {Cover, getPublicKey, sign} from '@psychedelic/cover';
+import {Ed25519KeyIdentity} from '@dfinity/identity';
+import {Principal} from '@dfinity/principal';
+import {SignIdentity} from '@dfinity/agent';
 
 // create new identity
 const identity = Ed25519KeyIdentity.generate() as SignIdentity;
@@ -183,16 +183,16 @@ const identity = Ed25519KeyIdentity.generate() as SignIdentity;
 const cover = new Cover(identity);
 
 // verify a canister
-const isVerified = await cover.verify(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai"));
+const isVerified = await cover.verify(Principal.fromText('iftvq-niaaa-aaaai-qasga-cai'));
 
 // get wasm hash from IC network
-const icHash = await cover.getICHash(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai"));
+const icHash = await cover.getICHash(Principal.fromText('iftvq-niaaa-aaaai-qasga-cai'));
 
 // get wasm hash from Cover verification
-const coverHash = await cover.getCoverHash(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai"));
+const coverHash = await cover.getCoverHash(Principal.fromText('iftvq-niaaa-aaaai-qasga-cai'));
 
 // get Cover verification by canister ID
-const verification = await cover.getVerificationByCanisterId(Principal.fromText("iftvq-niaaa-aaaai-qasga-cai"));
+const verification = await cover.getVerificationByCanisterId(Principal.fromText('iftvq-niaaa-aaaai-qasga-cai'));
 
 // get public key
 const publicKey = getPublicKey(identity);

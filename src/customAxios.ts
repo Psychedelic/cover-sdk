@@ -1,5 +1,5 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const validatorAxios = axios.create({
-  headers: {"content-type": "application/json"}
+  headers: {'content-type': 'application/json'}
 });
