@@ -5,7 +5,7 @@ export interface BuildRequest {
   canister_name: string;
   commit_hash: string;
   repo_url: string;
-  rust_version: string | undefined;
+  rust_version: string;
   optimize_count: number;
   repo_access_token: string;
 }
