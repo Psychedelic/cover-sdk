@@ -134,7 +134,7 @@ export interface _SERVICE {
   'getBuildConfigById' : ActorMethod<[Principal], [] | [BuildConfig]>,
   'getBuildConfigValidator' : ActorMethod<
     [BuildConfigInfo],
-    [] | [BuildConfig],
+    [] | [BuildConfig]
   >,
   'getBuildConfigs' : ActorMethod<[], Array<BuildConfig>>,
   'getBuilders' : ActorMethod<[], Array<Principal>>,
