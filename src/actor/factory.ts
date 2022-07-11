@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 export const idlFactory = ({ IDL }) => {
   const Config = IDL.Record({
     'admin' : IDL.Opt(IDL.Vec(IDL.Principal)),
@@ -20,7 +20,7 @@ export const idlFactory = ({ IDL }) => {
     'canister_id' : IDL.Principal,
     'build_status' : BuildStatus,
   });
-  const ManualReply = IDL.Record({
+  const ActivitiesPagination = IDL.Record({
     'page_index' : IDL.Nat64,
     'data' : IDL.Vec(Activity),
     'total_pages' : IDL.Nat64,
@@ -49,19 +49,20 @@ export const idlFactory = ({ IDL }) => {
     'updated_at' : IDL.Text,
     'updated_by' : IDL.Principal,
     'canister_id' : IDL.Principal,
+    'delegate_canister_id' : IDL.Opt(IDL.Principal),
     'dfx_version' : IDL.Text,
     'build_status' : BuildStatus,
     'canister_name' : IDL.Text,
     'commit_hash' : IDL.Text,
     'canister_type' : IDL.Opt(CanisterType),
     'repo_url' : IDL.Text,
-    'repo_visibility' : IDL.Opt(IDL.Text),
+    'repo_visibility' : IDL.Text,
     'rust_version' : IDL.Opt(IDL.Text),
     'optimize_count' : IDL.Nat8,
     'build_url' : IDL.Opt(IDL.Text),
     'wasm_hash' : IDL.Opt(IDL.Text),
   });
-  const ManualReply_1 = IDL.Record({
+  const VerificationsPagination = IDL.Record({
     'page_index' : IDL.Nat64,
     'data' : IDL.Vec(Verification),
     'total_pages' : IDL.Nat64,
@@ -81,11 +82,13 @@ export const idlFactory = ({ IDL }) => {
   });
   const RegisterVerification = IDL.Record({
     'canister_id' : IDL.Principal,
+    'delegate_canister_id' : IDL.Opt(IDL.Principal),
     'dfx_version' : IDL.Text,
     'owner_id' : IDL.Principal,
     'canister_name' : IDL.Text,
     'commit_hash' : IDL.Text,
     'repo_url' : IDL.Text,
+    'repo_visibility' : IDL.Text,
     'rust_version' : IDL.Opt(IDL.Text),
     'optimize_count' : IDL.Nat8,
   });
@@ -103,6 +106,7 @@ export const idlFactory = ({ IDL }) => {
   });
   const SubmitVerification = IDL.Record({
     'canister_id' : IDL.Principal,
+    'delegate_canister_id' : IDL.Opt(IDL.Principal),
     'dfx_version' : IDL.Text,
     'owner_id' : IDL.Principal,
     'build_status' : BuildStatus,
@@ -110,7 +114,7 @@ export const idlFactory = ({ IDL }) => {
     'commit_hash' : IDL.Text,
     'canister_type' : IDL.Opt(CanisterType),
     'repo_url' : IDL.Text,
-    'repo_visibility' : IDL.Opt(IDL.Text),
+    'repo_visibility' : IDL.Text,
     'rust_version' : IDL.Opt(IDL.Text),
     'optimize_count' : IDL.Nat8,
     'build_url' : IDL.Text,
@@ -124,7 +128,7 @@ export const idlFactory = ({ IDL }) => {
     'deleteBuildConfig' : IDL.Func([IDL.Principal], [], []),
     'deleteBuilder' : IDL.Func([IDL.Principal], [], []),
     'deleteValidator' : IDL.Func([IDL.Principal], [], []),
-    'getActivities' : IDL.Func([PaginationInfo], [ManualReply], ['query']),
+    'getActivities' : IDL.Func([PaginationInfo], [ActivitiesPagination], ['query']),
     'getAdmins' : IDL.Func([], [IDL.Vec(IDL.Principal)], ['query']),
     'getBuildConfigById' : IDL.Func(
         [IDL.Principal],
@@ -144,7 +148,7 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Opt(Verification)],
         ['query'],
       ),
-    'getVerifications' : IDL.Func([PaginationInfo], [ManualReply_1], ['query']),
+    'getVerifications' : IDL.Func([PaginationInfo], [VerificationsPagination], ['query']),
     'getVerificationsStats' : IDL.Func([], [Stats], ['query']),
     'registerVerification' : IDL.Func([RegisterVerification], [Result], []),
     'saveBuildConfig' : IDL.Func([SaveBuildConfig], [], []),

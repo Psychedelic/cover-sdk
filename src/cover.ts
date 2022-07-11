@@ -72,11 +72,10 @@ export class Cover {
       new TextEncoder().encode('module_hash')
     ];
 
-    const res = await agent.readState(canisterId, {
+    const {certificate} = await agent.readState(canisterId, {
       paths: [path]
     });
-    const cert = new Certificate(res, agent);
-    await cert.verify();
+    const cert = await Certificate.create({certificate, rootKey: agent.rootKey, canisterId});
     const hashBuffer = cert.lookup(path);
     return hashBuffer && `0x${Buffer.from(hashBuffer as ArrayBuffer).toString('hex')}`;
   }
