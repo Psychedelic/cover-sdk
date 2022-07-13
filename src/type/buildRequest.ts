@@ -2,6 +2,7 @@ export interface BuildRequest {
   canister_id: string;
   dfx_version: string;
   owner_id: string;
+  delegate_canister_id: string;
   canister_name: string;
   commit_hash: string;
   repo_url: string;
