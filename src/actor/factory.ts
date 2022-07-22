@@ -45,7 +45,11 @@ export const idlFactory = ({ IDL }) => {
     'canister_id' : IDL.Principal,
     'owner_id' : IDL.Principal,
   });
-  const CanisterType = IDL.Variant({ 'Rust' : IDL.Null, 'Motoko' : IDL.Null });
+  const CanisterType = IDL.Variant({
+    'Rust' : IDL.Null,
+    'Custom' : IDL.Null,
+    'Motoko' : IDL.Null,
+  });
   const Verification = IDL.Record({
     'updated_at' : IDL.Text,
     'updated_by' : IDL.Principal,
@@ -73,6 +77,7 @@ export const idlFactory = ({ IDL }) => {
     'is_last_page' : IDL.Bool,
   });
   const Stats = IDL.Record({
+    'custom_canisters_count' : IDL.Nat64,
     'build_error_count' : IDL.Nat64,
     'build_in_progress_count' : IDL.Nat64,
     'rust_canisters_count' : IDL.Nat64,
@@ -130,6 +135,7 @@ export const idlFactory = ({ IDL }) => {
     'deleteBuildConfig' : IDL.Func([IDL.Principal], [], []),
     'deleteBuilder' : IDL.Func([IDL.Principal], [], []),
     'deleteValidator' : IDL.Func([IDL.Principal], [], []),
+    'dfxInfo' : IDL.Func([], [IDL.Text], ['query']),
     'getActivities' : IDL.Func([PaginationInfo], [ActivitiesPagination], ['query']),
     'getAdmins' : IDL.Func([], [IDL.Vec(IDL.Principal)], ['query']),
     'getBuildConfigById' : IDL.Func(
@@ -152,7 +158,9 @@ export const idlFactory = ({ IDL }) => {
       ),
     'getVerifications' : IDL.Func([PaginationInfo], [VerificationsPagination], ['query']),
     'getVerificationsStats' : IDL.Func([], [Stats], ['query']),
+    'gitCommitHash' : IDL.Func([], [IDL.Text], ['query']),
     'registerVerification' : IDL.Func([RegisterVerification], [Result], []),
+    'rustToolchainInfo' : IDL.Func([], [IDL.Text], ['query']),
     'saveBuildConfig' : IDL.Func([SaveBuildConfig], [], []),
     'submitVerification' : IDL.Func([SubmitVerification], [], []),
   });
