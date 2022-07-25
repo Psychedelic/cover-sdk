@@ -27,6 +27,7 @@ export type BuildStatus = { 'Error' : null } |
   { 'Success' : null } |
   { 'Pending' : null };
 export type CanisterType = { 'Rust' : null } |
+  { 'Custom' : null } |
   { 'Motoko' : null };
 export interface Config {
   'admin' : [] | [Array<Principal>],
@@ -82,6 +83,7 @@ export interface SaveBuildConfig {
   'optimize_count' : number,
 }
 export interface Stats {
+  'custom_canisters_count' : bigint,
   'build_error_count' : bigint,
   'build_in_progress_count' : bigint,
   'rust_canisters_count' : bigint,
@@ -131,6 +133,7 @@ export interface _SERVICE {
   'deleteBuildConfig' : ActorMethod<[Principal], undefined>,
   'deleteBuilder' : ActorMethod<[Principal], undefined>,
   'deleteValidator' : ActorMethod<[Principal], undefined>,
+  'dfxInfo' : ActorMethod<[], string>,
   'getActivities' : ActorMethod<[PaginationInfo], ActivitiesPagination>,
   'getAdmins' : ActorMethod<[], Array<Principal>>,
   'getBuildConfigById' : ActorMethod<[Principal], [] | [BuildConfig]>,
@@ -144,7 +147,9 @@ export interface _SERVICE {
   'getVerificationByCanisterId' : ActorMethod<[Principal], [] | [Verification]>,
   'getVerifications' : ActorMethod<[PaginationInfo], VerificationsPagination>,
   'getVerificationsStats' : ActorMethod<[], Stats>,
+  'gitCommitHash' : ActorMethod<[], string>,
   'registerVerification' : ActorMethod<[RegisterVerification], Result>,
+  'rustToolchainInfo' : ActorMethod<[], string>,
   'saveBuildConfig' : ActorMethod<[SaveBuildConfig], undefined>,
   'submitVerification' : ActorMethod<[SubmitVerification], undefined>,
 }
