@@ -1,7 +1,6 @@
 coverage
 public
 build
-factory.ts
-factoryType.ts
+idl
 lib
 dist
