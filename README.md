@@ -134,7 +134,7 @@ cover.saveBuildConfig(buildConfig: buildConfigRequest): Promise<void>;
 cover.build(buildConfig: buildConfigRequest): Promise<void>;
 
 // build a saved config
-cover.buildWithConfig(canisterId: string, repoAccessToken: string, ownerId: string): Promise<void>;
+cover.buildWithConfig(canisterId: string, repoAccessToken: string, callerId: string): Promise<void>;
 
 // build a config without create a Cover instance
 Cover.anonymousBuild(buildRequest: AnonymousBuildRequest);

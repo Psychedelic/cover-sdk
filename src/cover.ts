@@ -5,13 +5,13 @@ import fetch from 'isomorphic-fetch';
 import {createActor} from './actor/coverActor';
 import {
   _SERVICE,
-  ActivitiesPagination,
+  ActivityPagination,
   BuildConfig,
   PaginationInfo,
   Stats,
   Verification,
-  VerificationsPagination
-} from './actor/factoryType';
+  VerificationPagination
+} from './actor/idl/cover.did.d';
 import {developmentConfig, productionConfig} from './config';
 import {validatorAxios} from './customAxios';
 import {AnonymousBuildRequest, BuildRequest} from './type/buildRequest';
@@ -42,7 +42,7 @@ export class Cover {
     return coverHash !== undefined && coverHash === icHash;
   }
 
-  async getAllVerifications(paginationInfo: PaginationInfo): Promise<VerificationsPagination> {
+  async getAllVerifications(paginationInfo: PaginationInfo): Promise<VerificationPagination> {
     return this.coverActor.getVerifications(paginationInfo);
   }
 
@@ -106,7 +106,7 @@ export class Cover {
         dfxVersion: buildConfig.dfx_version,
         rustVersion: buildConfig.rust_version,
         optimizeCount: buildConfig.optimize_count,
-        ownerId: buildConfig.owner_id,
+        callerId: buildConfig.caller_id,
         delegateCanisterId: buildConfig.delegate_canister_id,
         repoAccessToken: buildConfig.repo_access_token,
         publicKey,
@@ -130,7 +130,7 @@ export class Cover {
         dfxVersion: buildConfig.dfx_version,
         rustVersion: buildConfig.rust_version,
         optimizeCount: buildConfig.optimize_count,
-        ownerId: buildConfig.owner_id,
+        callerId: buildConfig.caller_id,
         delegateCanisterId: buildConfig.delegate_canister_id,
         repoAccessToken: buildConfig.repo_access_token,
         publicKey,
@@ -155,7 +155,7 @@ export class Cover {
         dfxVersion: buildConfig.dfx_version,
         rustVersion: buildConfig.rust_version,
         optimizeCount: buildConfig.optimize_count,
-        ownerId: buildConfig.owner_id,
+        callerId: buildConfig.caller_id,
         delegateCanisterId: buildConfig.delegate_canister_id,
         repoAccessToken: buildConfig.repo_access_token,
         publicKey: buildConfig.public_key,
@@ -166,7 +166,7 @@ export class Cover {
       .catch(errHandler);
   }
 
-  async buildWithConfig(canisterId: string, repoAccessToken: string, ownerId: string): Promise<void> {
+  async buildWithConfig(canisterId: string, repoAccessToken: string, callerId: string): Promise<void> {
     const publicKey = getPublicKey(this.identity);
     const timestamp = new Date().getTime();
     const signature = await sign(this.identity, timestamp);
@@ -176,14 +176,24 @@ export class Cover {
         repoAccessToken,
         publicKey,
         signature,
-        ownerId,
+        callerId,
         timestamp
       })
       .then(() => undefined)
       .catch(errHandler);
   }
 
-  async getActivities(paginationInfo: PaginationInfo): Promise<ActivitiesPagination> {
+  async buildWithCoverMetadata(canisterId: string, repoAccessToken: string): Promise<void> {
+    return validatorAxios
+      .post(`${this.config.validatorUrl}/build-with-config`, {
+        canisterId,
+        repoAccessToken
+      })
+      .then(() => undefined)
+      .catch(errHandler);
+  }
+
+  async getActivities(paginationInfo: PaginationInfo): Promise<ActivityPagination> {
     return this.coverActor.getActivities(paginationInfo);
   }
 }
