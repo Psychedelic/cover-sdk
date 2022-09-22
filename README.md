@@ -106,7 +106,7 @@ interface Pagination {
 cover.getBuildConfigs(): Promise<Array<BuildConfig>>;
 
 // get build config by canister id
-cover.getBuildConfigById(canisterId: Principal): Promise<BuildConfig | undefined>;
+cover.getBuildConfigByCanisterId(canisterId: Principal): Promise<BuildConfig | undefined>;
 
 // delete a build config
 cover.deleteBuildConfig(canisterId: Principal): Promise<void>;
@@ -138,6 +138,9 @@ cover.buildWithConfig(canisterId: string, repoAccessToken: string, callerId: str
 
 // build a config without create a Cover instance
 Cover.anonymousBuild(buildRequest: AnonymousBuildRequest);
+
+// build with metadata
+Cover.buildWithCoverMetadata(canisterId: string, repoAccessToken: string);
 ```
 
 - Get public key and sign a signature with your identity and current timestamp
