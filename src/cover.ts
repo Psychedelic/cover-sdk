@@ -165,7 +165,7 @@ export class Cover {
       .catch(errHandler);
   }
 
-  async buildWithConfig(canisterId: string, repoAccessToken: string): Promise<void> {
+  async buildWithConfig(canisterId: string, repoAccessToken = ''): Promise<void> {
     const publicKey = getPublicKey(this.identity);
     const timestamp = new Date().getTime();
     const signature = await sign(this.identity, timestamp);
@@ -184,7 +184,7 @@ export class Cover {
 
   static async buildWithCoverMetadata(
     canisterId: string,
-    repoAccessToken: string,
+    repoAccessToken?: string,
     coverConfig?: CoverConfig
   ): Promise<void> {
     let config = productionConfig;
@@ -194,7 +194,7 @@ export class Cover {
     return validatorAxios
       .post(`${config.validatorUrl}/build-with-cover-metadata`, {
         canisterId,
-        repoAccessToken
+        repoAccessToken: repoAccessToken || ''
       })
       .then(() => undefined)
       .catch(errHandler);
