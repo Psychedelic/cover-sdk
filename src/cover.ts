@@ -185,7 +185,7 @@ export class Cover {
 
   async buildWithCoverMetadata(canisterId: string, repoAccessToken: string): Promise<void> {
     return validatorAxios
-      .post(`${this.config.validatorUrl}/build-with-config`, {
+      .post(`${this.config.validatorUrl}/build-with-cover-metadata`, {
         canisterId,
         repoAccessToken
       })
