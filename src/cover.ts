@@ -80,6 +80,10 @@ export class Cover {
     return hashBuffer && `0x${Buffer.from(hashBuffer as ArrayBuffer).toString('hex')}`;
   }
 
+  async getActivities(paginationInfo: PaginationInfo): Promise<ActivityPagination> {
+    return this.coverActor.getActivities(paginationInfo);
+  }
+
   async getBuildConfigByCanisterId(canisterId: Principal): Promise<BuildConfig | undefined> {
     return this.coverActor.getBuildConfigById(canisterId).then(config => config[0]);
   }
@@ -198,9 +202,5 @@ export class Cover {
       })
       .then(() => undefined)
       .catch(errHandler);
-  }
-
-  async getActivities(paginationInfo: PaginationInfo): Promise<ActivityPagination> {
-    return this.coverActor.getActivities(paginationInfo);
   }
 }
