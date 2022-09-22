@@ -11,7 +11,7 @@ import {
   Stats,
   Verification,
   VerificationPagination
-} from './actor/idl/cover.did.d';
+} from './actor/idl/cover.did.type';
 import {developmentConfig, productionConfig} from './config';
 import {validatorAxios} from './customAxios';
 import {AnonymousBuildRequest, BuildRequest} from './type/buildRequest';

@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 
 import {EnvConfig} from '../config';
 import {idlFactory} from './idl/cover.did';
-import {_SERVICE as Service} from './idl/cover.did.d';
+import {_SERVICE as Service} from './idl/cover.did.type';
 
 export const createActor = (identity: Identity, config: EnvConfig): ActorSubclass<Service> => {
   const agent = new HttpAgent({host: config.icHost, fetch, identity});
