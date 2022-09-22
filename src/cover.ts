@@ -165,14 +165,14 @@ export class Cover {
       .catch(errHandler);
   }
 
-  async buildWithConfig(canisterId: string, repoAccessToken = ''): Promise<void> {
+  async buildWithConfig(canisterId: string, repoAccessToken?: string): Promise<void> {
     const publicKey = getPublicKey(this.identity);
     const timestamp = new Date().getTime();
     const signature = await sign(this.identity, timestamp);
     return validatorAxios
       .post(`${this.config.validatorUrl}/build-with-config`, {
         canisterId,
-        repoAccessToken,
+        repoAccessToken: repoAccessToken || '',
         publicKey,
         signature,
         callerId: this.identity.getPrincipal().toText(),
