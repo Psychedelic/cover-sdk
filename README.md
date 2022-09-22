@@ -76,7 +76,7 @@ cover.getICHash(canisterId: Principal): Promise<string | undefined>;
 //   items_per_page has Min value = 10 & Max = 120
 //   page_index is start from 1
 // }
-cover.getAllVerifications(paginationInfo: PaginationInfo): Promise<VerificationsPagination>;
+cover.getAllVerifications(paginationInfo: PaginationInfo): Promise<VerificationPagination>;
 
 // get verification by canister id
 cover.getVerificationByCanisterId(canisterId: Principal): Promise<Verification | undefined>;
@@ -120,7 +120,7 @@ cover.deleteBuildConfig(canisterId: Principal): Promise<void>;
 //   items_per_page has Min value = 10 & Max = 120
 //   page_index is start from 1
 // }
-cover.getActivities(paginationInfo: PaginationInfo): Promise<ActivitiesPagination>;
+cover.getActivities(paginationInfo: PaginationInfo): Promise<ActivityPagination>;
 ```
 
 - Interact with **_Cover Validator_**, more info about the validator and the parameters used below, see [here](https://github.com/Psychedelic/cover-validator)
@@ -128,29 +128,29 @@ cover.getActivities(paginationInfo: PaginationInfo): Promise<ActivitiesPaginatio
 
 ```javascript
 // save a build config
-cover.saveBuildConfig(buildConfig: buildConfigRequest): Promise<void>;
+cover.saveBuildConfig(buildConfig: BuildRequest): Promise<void>;
 
 // build a config
-cover.build(buildConfig: buildConfigRequest): Promise<void>;
+cover.build(buildConfig: BuildRequest): Promise<void>;
 
 // build a saved config
-cover.buildWithConfig(canisterId: string, repoAccessToken: string, callerId: string): Promise<void>;
+cover.buildWithConfig(canisterId: string, repoAccessToken?: string): Promise<void>;
 
 // build a config without create a Cover instance
-Cover.anonymousBuild(buildRequest: AnonymousBuildRequest);
+Cover.anonymousBuild(buildConfig: AnonymousBuildRequest, coverConfig?: CoverConfig): Promise<void>;
 
 // build with metadata
-Cover.buildWithCoverMetadata(canisterId: string, repoAccessToken: string);
+Cover.buildWithCoverMetadata(canisterId: string, repoAccessToken?: string, coverConfig?: CoverConfig): Promise<void>;
 ```
 
 - Get public key and sign a signature with your identity and current timestamp
 
 ```typescript
 // get public key
-getPublicKey(identity: SignIdentity): string;
+getPublicKey: (identity: SignIdentity) => string;
 
 // sign a signature, return a hex string
-sign(identity: SignIdentity, timestamp: number): Promise<string>;
+sign: (identity: SignIdentity, timestamp: number) => Promise<string>;
 ```
 
 - Error code with **_Validator's APIs_** above
