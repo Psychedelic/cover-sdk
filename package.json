@@ -1,6 +1,6 @@
 {
   "name": "@psychedelic/cover",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "Cover Software Development Kit",
   "main": "./lib/cjs/index",
   "module": "./lib/esm/index",
@@ -17,7 +17,8 @@
     "prettier": "prettier --write .",
     "lint:check": "eslint .",
     "lint": "eslint . --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "jest"
   },
   "keywords": [
     "internet computer",
@@ -40,6 +41,7 @@
   ],
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.36",
+    "@types/jest": "^29.0.3",
     "@types/node": "^14.18.29",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
@@ -50,7 +52,9 @@
     "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-sonarjs": "^0.15.0",
     "husky": "^8.0.1",
+    "jest": "^29.0.3",
     "prettier": "^2.7.1",
+    "ts-jest": "^29.0.1",
     "typescript": "^4.8.3"
   },
   "dependencies": {
