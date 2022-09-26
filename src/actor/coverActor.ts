@@ -1,4 +1,5 @@
 import {Actor, ActorSubclass, HttpAgent, Identity} from '@dfinity/agent';
+import {Principal} from '@dfinity/principal';
 import fetch from 'isomorphic-fetch';
 
 import {EnvConfig} from '../config';
@@ -16,7 +17,11 @@ export const createCoverActor = (identity: Identity, config: EnvConfig): ActorSu
   });
 };
 
-export const createCoverMetadataActor = (identity: Identity, canisterId: string, config: EnvConfig): ActorSubclass<CoverMetadataService> => {
+export const createCoverMetadataActor = (
+  identity: Identity,
+  canisterId: Principal,
+  config: EnvConfig
+): ActorSubclass<CoverMetadataService> => {
   const agent = new HttpAgent({host: config.icHost, fetch, identity});
 
   return Actor.createActor<CoverMetadataService>(coverMetadataIdlFactory, {

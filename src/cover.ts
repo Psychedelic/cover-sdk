@@ -1,4 +1,4 @@
-import {ActorSubclass, Certificate, HttpAgent, SignIdentity} from '@dfinity/agent';
+import {ActorSubclass, AnonymousIdentity, Certificate, HttpAgent, SignIdentity} from '@dfinity/agent';
 import {Principal} from '@dfinity/principal';
 import fetch from 'isomorphic-fetch';
 
@@ -7,11 +7,11 @@ import {
   _SERVICE,
   ActivityPagination,
   BuildConfig,
+  CoverMetadata,
   PaginationInfo,
   Stats,
   Verification,
-  VerificationPagination,
-  CoverMetadata
+  VerificationPagination
 } from './actor/idl/cover.did.type';
 import {developmentConfig, productionConfig} from './config';
 import {validatorAxios} from './customAxios';
@@ -29,8 +29,8 @@ export class Cover {
 
   private coverActor: ActorSubclass<_SERVICE>;
 
-  constructor(identity: SignIdentity, config?: CoverConfig) {
-    if (config?.isDevelopment) {
+  constructor(identity: SignIdentity, coverConfig?: CoverConfig) {
+    if (coverConfig?.isDevelopment) {
       this.config = developmentConfig;
     }
     this.identity = identity;
@@ -98,7 +98,17 @@ export class Cover {
   }
 
   async coverMetadata(canisterId: Principal): Promise<CoverMetadata> {
-    const actor = createCoverMetadataActor()
+    const actor = createCoverMetadataActor(this.identity, canisterId, this.config);
+    return actor.coverMetadata();
+  }
+
+  static async anonymousCoverMetadata(canisterId: Principal, coverConfig: CoverConfig): Promise<CoverMetadata> {
+    let config = productionConfig;
+    if (coverConfig?.isDevelopment) {
+      config = developmentConfig;
+    }
+    const actor = createCoverMetadataActor(new AnonymousIdentity(), canisterId, config);
+    return actor.coverMetadata();
   }
 
   async saveBuildConfig(buildConfig: BuildRequest): Promise<void> {
