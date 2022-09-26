@@ -2,7 +2,7 @@ import {ActorSubclass, AnonymousIdentity, Certificate, HttpAgent, SignIdentity} 
 import {Principal} from '@dfinity/principal';
 import fetch from 'isomorphic-fetch';
 
-import {createCoverActor, createCoverMetadataActor} from './actor/coverActor';
+import {createCoverActor, createCoverMetadataActor} from './actor';
 import {
   _SERVICE,
   ActivityPagination,
@@ -98,16 +98,12 @@ export class Cover {
   }
 
   async coverMetadata(canisterId: Principal): Promise<CoverMetadata> {
-    const actor = createCoverMetadataActor(this.identity, canisterId, this.config);
+    const actor = createCoverMetadataActor(this.identity, canisterId);
     return actor.coverMetadata();
   }
 
-  static async anonymousCoverMetadata(canisterId: Principal, coverConfig: CoverConfig): Promise<CoverMetadata> {
-    let config = productionConfig;
-    if (coverConfig?.isDevelopment) {
-      config = developmentConfig;
-    }
-    const actor = createCoverMetadataActor(new AnonymousIdentity(), canisterId, config);
+  static async anonymousCoverMetadata(canisterId: Principal): Promise<CoverMetadata> {
+    const actor = createCoverMetadataActor(new AnonymousIdentity(), canisterId);
     return actor.coverMetadata();
   }
 
