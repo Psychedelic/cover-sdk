@@ -2,7 +2,7 @@ import {ActorSubclass, Certificate, HttpAgent, SignIdentity} from '@dfinity/agen
 import {Principal} from '@dfinity/principal';
 import fetch from 'isomorphic-fetch';
 
-import {createActor} from './actor/coverActor';
+import {createCoverActor, createCoverMetadataActor} from './actor/coverActor';
 import {
   _SERVICE,
   ActivityPagination,
@@ -10,7 +10,8 @@ import {
   PaginationInfo,
   Stats,
   Verification,
-  VerificationPagination
+  VerificationPagination,
+  CoverMetadata
 } from './actor/idl/cover.did.type';
 import {developmentConfig, productionConfig} from './config';
 import {validatorAxios} from './customAxios';
@@ -33,7 +34,7 @@ export class Cover {
       this.config = developmentConfig;
     }
     this.identity = identity;
-    this.coverActor = createActor(this.identity, this.config);
+    this.coverActor = createCoverActor(this.identity, this.config);
   }
 
   async verify(canisterId: Principal): Promise<boolean> {
@@ -94,6 +95,10 @@ export class Cover {
 
   async deleteBuildConfig(canisterId: Principal): Promise<void> {
     return this.coverActor.deleteBuildConfig(canisterId);
+  }
+
+  async coverMetadata(canisterId: Principal): Promise<CoverMetadata> {
+    const actor = createCoverMetadataActor()
   }
 
   async saveBuildConfig(buildConfig: BuildRequest): Promise<void> {
