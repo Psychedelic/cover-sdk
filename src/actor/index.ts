@@ -2,7 +2,7 @@ import {Actor, ActorSubclass, HttpAgent, Identity} from '@dfinity/agent';
 import {Principal} from '@dfinity/principal';
 import fetch from 'isomorphic-fetch';
 
-import {EnvConfig, IC_HOST} from '../config';
+import {EnvConfig, IC_HOST} from '../coverConfig';
 import {idlFactory as coverIdlFactory} from './idl/cover.did';
 import {_SERVICE as CoverService} from './idl/cover.did.type';
 import {idlFactory as coverMetadataIdlFactory} from './idl/coverMetadata.did';
