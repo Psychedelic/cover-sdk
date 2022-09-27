@@ -34,13 +34,13 @@ npm i @psychedelic/cover
 
 - For CommonJS
 
-```javascript
+```typescript
 const {Cover} = require('@psychedelic/cover');
 ```
 
 - For JavaScript Modules
 
-```javascript
+```typescript
 import {Cover} from '@psychedelic/cover';
 ```
 
@@ -48,7 +48,7 @@ import {Cover} from '@psychedelic/cover';
 
 - Construct a new Cover object with your identity
 
-```javascript
+```typescript
 const cover = new Cover(identity: SignIdentity);
 ```
 
@@ -60,7 +60,7 @@ cover.verify(canisterId: Principal): Promise<boolean>;
 
 - Get wasm hash
 
-```javascript
+```typescript
 // wasm hash in Cover verification
 cover.getCoverHash(canisterId: Principal): Promise<string | undefined>;
 
@@ -70,7 +70,7 @@ cover.getICHash(canisterId: Principal): Promise<string | undefined>;
 
 - Get Cover verification
 
-```javascript
+```typescript
 // provide a pagination info to get all verifications
 // PaginationInfo {
 //   items_per_page has Min value = 10 & Max = 120
@@ -101,7 +101,7 @@ interface Pagination {
 
 - Interact with build configs of given identity (the identity passed in the Cover constructor)
 
-```javascript
+```typescript
 // get all build configs
 cover.getBuildConfigs(): Promise<Array<BuildConfig>>;
 
@@ -114,7 +114,7 @@ cover.deleteBuildConfig(canisterId: Principal): Promise<void>;
 
 - Get recent activities from Cover
 
-```javascript
+```typescript
 // provide a pagination info to get activities
 // PaginationInfo {
 //   items_per_page has Min value = 10 & Max = 120
@@ -123,10 +123,20 @@ cover.deleteBuildConfig(canisterId: Principal): Promise<void>;
 cover.getActivities(paginationInfo: PaginationInfo): Promise<ActivityPagination>;
 ```
 
+- Get **_Cover Metadata_** information
+
+```typescript
+// from Cover's instance
+cover.coverMetadata(canisterId: Principal): Promise<CoverMetadata>;
+
+// without Cover's instance
+Cover.anonymousCoverMetadata(canisterId: Principal): Promise<CoverMetadata>;
+```
+
 - Interact with **_Cover Validator_**, more info about the validator and the parameters used below, see [here](https://github.com/Psychedelic/cover-validator)
 - Cover SDK will get public key and signature from your identity and send to Cover Validator
 
-```javascript
+```typescript
 // save a build config
 cover.saveBuildConfig(buildConfig: BuildRequest): Promise<void>;
 
