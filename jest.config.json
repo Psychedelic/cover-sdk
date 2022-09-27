@@ -5,10 +5,10 @@
   "collectCoverageFrom": ["src/**/*.ts"],
   "coverageThreshold": {
     "global": {
-      "branches": 100,
-      "functions": 100,
-      "lines": 100,
-      "statements": 100
+      "branches": 40,
+      "functions": 30,
+      "lines": 60,
+      "statements": 60
     }
   },
   "coverageReporters": ["clover", "json", "lcov", "text"]

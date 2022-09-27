@@ -34,4 +34,12 @@ describe('Cover production', () => {
   test('getICHash', async () => {
     expect(await cover.getICHash(Principal.from('3x7en-uqaaa-aaaai-abgca-cai'))).toBeDefined();
   });
+
+  test('coverMetadata', async () => {
+    expect(await cover.coverMetadata(Principal.from('iftvq-niaaa-aaaai-qasga-cai'))).toBeDefined();
+  });
+
+  test('anonymousCoverMetadata', async () => {
+    expect(await Cover.anonymousCoverMetadata(Principal.from('iftvq-niaaa-aaaai-qasga-cai'))).toBeDefined();
+  });
 });

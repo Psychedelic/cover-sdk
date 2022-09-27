@@ -54,5 +54,6 @@
   },
   "settings": {
     "import/resolver": {"node": {"extensions": [".ts", ".tsx"]}, "typescript": {}}
-  }
+  },
+  "overrides": [{"files": ["test/**"], "rules": {"sonarjs/no-duplicate-string": "off"}}]
 }
