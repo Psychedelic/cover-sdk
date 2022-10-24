@@ -2,6 +2,8 @@ import {ActorSubclass, AnonymousIdentity, Certificate, HttpAgent, SignIdentity} 
 import {Principal} from '@dfinity/principal';
 import fetch from 'isomorphic-fetch';
 
+import {AnonymousBuildRequest, AnonymousBuildWithConfigRequest, BuildRequest, BuildWithConfigRequest} from 'type';
+
 import {createCoverActor, createCoverMetadataActor} from './actor';
 import {
   _SERVICE,
@@ -15,7 +17,6 @@ import {
 } from './actor/idl/cover.did.type';
 import {developmentConfig, productionConfig} from './coverConfig';
 import {validatorAxios} from './customAxios';
-import {AnonymousBuildRequest, BuildRequest} from './type/buildRequest';
 import {errHandler, getPublicKey, sign} from './utils';
 
 interface CoverConfig {
@@ -131,6 +132,31 @@ export class Cover {
       .catch(errHandler);
   }
 
+  static async anonymousSaveBuildConfig(buildConfig: AnonymousBuildRequest, coverConfig?: CoverConfig): Promise<void> {
+    let config = productionConfig;
+    if (coverConfig?.isDevelopment) {
+      config = developmentConfig;
+    }
+    return validatorAxios
+      .post(`${config.validatorUrl}/save-build-config`, {
+        canisterId: buildConfig.canisterId,
+        canisterName: buildConfig.canisterName,
+        repoUrl: buildConfig.repoUrl,
+        commitHash: buildConfig.commitHash,
+        dfxVersion: buildConfig.dfxVersion,
+        rustVersion: buildConfig.rustVersion,
+        optimizeCount: buildConfig.optimizeCount,
+        callerId: buildConfig.callerId,
+        delegateCanisterId: buildConfig.delegateCanisterId,
+        repoAccessToken: buildConfig.repoAccessToken,
+        publicKey: buildConfig.publicKey,
+        signature: buildConfig.signature,
+        timestamp: buildConfig.timestamp
+      })
+      .then(() => undefined)
+      .catch(errHandler);
+  }
+
   async build(buildConfig: BuildRequest): Promise<void> {
     const publicKey = getPublicKey(this.identity);
     const timestamp = new Date().getTime();
@@ -180,18 +206,39 @@ export class Cover {
       .catch(errHandler);
   }
 
-  async buildWithConfig(canisterId: string, repoAccessToken?: string): Promise<void> {
+  async buildWithConfig(buildWithConfig: BuildWithConfigRequest): Promise<void> {
     const publicKey = getPublicKey(this.identity);
     const timestamp = new Date().getTime();
     const signature = await sign(this.identity, timestamp);
     return validatorAxios
       .post(`${this.coverConfig.validatorUrl}/build-with-config`, {
-        canisterId,
-        repoAccessToken: repoAccessToken || '',
+        canisterId: buildWithConfig.canisterId,
+        repoAccessToken: buildWithConfig.repoAccessToken,
+        callerId: this.identity.getPrincipal().toText(),
         publicKey,
         signature,
-        callerId: this.identity.getPrincipal().toText(),
         timestamp
+      })
+      .then(() => undefined)
+      .catch(errHandler);
+  }
+
+  static async anonymousBuildWithConfig(
+    buildWithConfig: AnonymousBuildWithConfigRequest,
+    coverConfig?: CoverConfig
+  ): Promise<void> {
+    let config = productionConfig;
+    if (coverConfig?.isDevelopment) {
+      config = developmentConfig;
+    }
+    return validatorAxios
+      .post(`${config.validatorUrl}/build-with-config`, {
+        canisterId: buildWithConfig.canisterId,
+        repoAccessToken: buildWithConfig.repoAccessToken,
+        publicKey: buildWithConfig.publicKey,
+        signature: buildWithConfig.signature,
+        callerId: buildWithConfig.callerId,
+        timestamp: buildWithConfig.timestamp
       })
       .then(() => undefined)
       .catch(errHandler);
