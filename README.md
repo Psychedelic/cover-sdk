@@ -138,19 +138,25 @@ Cover.anonymousCoverMetadata(canisterId: Principal): Promise<CoverMetadata>;
 
 ```typescript
 // save a build config
-cover.saveBuildConfig(buildConfig: BuildRequest): Promise<void>;
+cover.saveBuildConfig(buildConfigRequest: BuildConfigRequest): Promise<void>;
 
 // build a config
-cover.build(buildConfig: BuildRequest): Promise<void>;
+cover.build(buildRequest: BuildRequest): Promise<void>;
 
 // build a saved config
-cover.buildWithConfig(canisterId: string, repoAccessToken?: string): Promise<void>;
+cover.buildWithConfig(buildWithConfigRequest: BuildWithConfigRequest): Promise<void>;
+
+// save a build config without create a Cover instance
+Cover.anonymousSaveBuildConfig(buildConfigRequest: AnonymousBuildConfigRequest, coverConfig?: CoverConfig): Promise<void>;
 
 // build a config without create a Cover instance
-Cover.anonymousBuild(buildConfig: AnonymousBuildRequest, coverConfig?: CoverConfig): Promise<void>;
+Cover.anonymousBuild(buildRequest: AnonymousBuildRequest, coverConfig?: CoverConfig): Promise<void>;
+
+// build a saved config without create a Cover instance
+Cover.anonymousBuildWithConfig(buildWithConfigRequest: AnonymousBuildWithConfigRequest, coverConfig?: CoverConfig): Promise<void>;
 
 // build with metadata
-Cover.buildWithCoverMetadata(canisterId: string, repoAccessToken?: string, coverConfig?: CoverConfig): Promise<void>;
+Cover.buildWithCoverMetadata(coverMetadataRequest: CoverMetadataRequest, coverConfig?: CoverConfig): Promise<void>;
 ```
 
 - Get public key and sign a signature with your identity and current timestamp
