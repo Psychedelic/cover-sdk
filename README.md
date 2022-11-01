@@ -103,13 +103,13 @@ interface Pagination {
 
 ```typescript
 // get all build configs
-cover.getBuildConfigs(): Promise<Array<BuildConfig>>;
+cover.getMyBuildConfigs(): Promise<Array<BuildConfig>>;
 
 // get build config by canister id
-cover.getBuildConfigByCanisterId(canisterId: Principal): Promise<BuildConfig | undefined>;
+cover.getMyBuildConfigById(canisterId: Principal): Promise<BuildConfig | undefined>;
 
 // delete a build config
-cover.deleteBuildConfig(canisterId: Principal): Promise<void>;
+cover.deleteMyBuildConfig(canisterId: Principal): Promise<void>;
 ```
 
 - Get recent activities from Cover

@@ -94,16 +94,16 @@ export class Cover {
     return this.coverActor.getActivities(paginationInfo);
   }
 
-  async getBuildConfigByCanisterId(canisterId: Principal): Promise<BuildConfig | undefined> {
-    return this.coverActor.getBuildConfigById(canisterId).then(buildConfig => buildConfig[0]);
+  async getMyBuildConfigById(canisterId: Principal): Promise<BuildConfig | undefined> {
+    return this.coverActor.getMyBuildConfigById(canisterId).then(buildConfig => buildConfig[0]);
   }
 
-  async getBuildConfigs(): Promise<Array<BuildConfig>> {
-    return this.coverActor.getBuildConfigs();
+  async getMyBuildConfigs(): Promise<Array<BuildConfig>> {
+    return this.coverActor.getMyBuildConfigs();
   }
 
-  async deleteBuildConfig(canisterId: Principal): Promise<void> {
-    return this.coverActor.deleteBuildConfig(canisterId);
+  async deleteMyBuildConfig(canisterId: Principal): Promise<void> {
+    return this.coverActor.deleteMyBuildConfig(canisterId);
   }
 
   async coverMetadata(canisterId: Principal): Promise<CoverMetadata> {
