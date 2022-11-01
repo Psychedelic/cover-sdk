@@ -1,6 +1,6 @@
 {
   "name": "@psychedelic/cover",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "description": "Cover Software Development Kit",
   "main": "./lib/cjs/index",
   "module": "./lib/esm/index",
