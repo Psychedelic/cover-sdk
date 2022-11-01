@@ -1,4 +1,4 @@
-import type {ActorMethod} from '@dfinity/agent';
+import type { ActorMethod } from '@dfinity/agent';
 
 export interface CoverMetadata {
   'dfx_version' : string,
