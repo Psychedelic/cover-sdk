@@ -10,6 +10,32 @@ describe('Cover production', () => {
     expect(await cover.verify(Principal.from('3x7en-uqaaa-aaaai-abgca-cai'))).toBeDefined();
   });
 
+  test('getActivities', async () => {
+    expect(
+      await cover.getActivities({
+        page_index: BigInt(1),
+        items_per_page: BigInt(10)
+      })
+    ).toBeDefined();
+  });
+
+  test('getMyActivities', async () => {
+    expect(
+      await cover.getMyActivities({
+        page_index: BigInt(1),
+        items_per_page: BigInt(10)
+      })
+    ).toBeDefined();
+  });
+
+  test('getMyBuildConfigs', async () => {
+    expect(await cover.getMyBuildConfigs()).toBeDefined();
+  });
+
+  test('getMyBuildConfigById', async () => {
+    expect(await cover.getMyBuildConfigById(Principal.from('3x7en-uqaaa-aaaai-abgca-cai'))).toBeUndefined();
+  });
+
   test('getAllVerifications', async () => {
     expect(
       await cover.getAllVerifications({

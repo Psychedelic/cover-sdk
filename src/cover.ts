@@ -18,6 +18,7 @@ import {
   ActivityPagination,
   BuildConfig,
   CoverMetadata,
+  MyActivityPagination,
   PaginationInfo,
   Stats,
   Verification,
@@ -92,6 +93,10 @@ export class Cover {
 
   async getActivities(paginationInfo: PaginationInfo): Promise<ActivityPagination> {
     return this.coverActor.getActivities(paginationInfo);
+  }
+
+  async getMyActivities(paginationInfo: PaginationInfo): Promise<MyActivityPagination> {
+    return this.coverActor.getMyActivities(paginationInfo);
   }
 
   async getMyBuildConfigById(canisterId: Principal): Promise<BuildConfig | undefined> {
