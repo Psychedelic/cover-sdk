@@ -55,5 +55,14 @@
   "settings": {
     "import/resolver": {"node": {"extensions": [".ts", ".tsx"]}, "typescript": {}}
   },
-  "overrides": [{"files": ["test/**"], "rules": {"sonarjs/no-duplicate-string": "off"}}]
+  "overrides": [
+    {
+      "files": ["test/**"],
+      "rules": {
+        "sonarjs/no-duplicate-string": "off",
+        "max-lines-per-function": "off",
+        "max-statements": "off"
+      }
+    }
+  ]
 }

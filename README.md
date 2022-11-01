@@ -121,6 +121,7 @@ cover.deleteMyBuildConfig(canisterId: Principal): Promise<void>;
 //   page_index is start from 1
 // }
 cover.getActivities(paginationInfo: PaginationInfo): Promise<ActivityPagination>;
+cover.getMyActivities(paginationInfo: PaginationInfo): Promise<MyActivityPagination>;
 ```
 
 - Get **_Cover Metadata_** information
