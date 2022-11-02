@@ -83,6 +83,8 @@ cover.getVerificationByCanisterId(canisterId: Principal): Promise<Verification |
 
 // get verification statistics
 cover.getVerificationStats(): Promise<Stats>;
+
+cover.getMyVerificationStats(): Promise<Stats>;
 ```
 
 - APIs with pagination info parameter will return an object like this

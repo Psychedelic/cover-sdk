@@ -10,6 +10,14 @@ describe('Cover production', () => {
     expect(await cover.verify(Principal.from('3x7en-uqaaa-aaaai-abgca-cai'))).toBeDefined();
   });
 
+  test('getStats', async () => {
+    expect(await cover.getVerificationStats()).toBeDefined();
+  });
+
+  test('getMyStats', async () => {
+    expect(await cover.getMyVerificationStats()).toBeDefined();
+  });
+
   test('getActivities', async () => {
     expect(
       await cover.getActivities({

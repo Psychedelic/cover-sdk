@@ -58,7 +58,11 @@ export class Cover {
   }
 
   async getVerificationStats(): Promise<Stats> {
-    return this.coverActor.getVerificationsStats();
+    return this.coverActor.getVerificationStats();
+  }
+
+  async getMyVerificationStats(): Promise<Stats> {
+    return this.coverActor.getMyVerificationStats();
   }
 
   async getVerificationByCanisterId(canisterId: Principal): Promise<Verification | undefined> {
