@@ -1,7 +1,7 @@
 // @ts-nocheck
 export const idlFactory = ({ IDL }) => {
   const CoverMetadata = IDL.Record({
-    'controller' : IDL.Opt(IDL.Text),
+    'controller' : IDL.Text,
     'dfx_version' : IDL.Text,
     'canister_name' : IDL.Text,
     'commit_hash' : IDL.Text,

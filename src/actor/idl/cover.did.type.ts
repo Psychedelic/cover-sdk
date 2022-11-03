@@ -35,7 +35,7 @@ export interface Config {
   'builder' : [] | [Array<Principal>],
 }
 export interface CoverMetadata {
-  'controller' : [] | [string],
+  'controller' : string,
   'dfx_version' : string,
   'canister_name' : string,
   'commit_hash' : string,
@@ -61,6 +61,17 @@ export interface MyActivityPagination {
   'is_first_page' : boolean,
   'items_per_page' : bigint,
   'is_last_page' : boolean,
+}
+export interface Stats {
+  'custom_canisters_count' : bigint,
+  'build_error_count' : bigint,
+  'build_in_progress_count' : bigint,
+  'rust_canisters_count' : bigint,
+  'build_pending_count' : bigint,
+  'motoko_canisters_count' : bigint,
+  'unknown_canisters_count' : bigint,
+  'total_canisters' : bigint,
+  'build_success_count' : bigint,
 }
 export interface VerificationPagination {
   'page_index' : bigint,
@@ -108,16 +119,6 @@ export interface SaveBuildConfig {
   'repo_url' : string,
   'rust_version' : [] | [string],
   'optimize_count' : number,
-}
-export interface Stats {
-  'custom_canisters_count' : bigint,
-  'build_error_count' : bigint,
-  'build_in_progress_count' : bigint,
-  'rust_canisters_count' : bigint,
-  'build_pending_count' : bigint,
-  'motoko_canisters_count' : bigint,
-  'total_canisters' : bigint,
-  'build_success_count' : bigint,
 }
 export interface SubmitVerification {
   'canister_id' : Principal,
@@ -171,10 +172,11 @@ export interface _SERVICE {
   'getMyActivities' : ActorMethod<[PaginationInfo], MyActivityPagination>,
   'getMyBuildConfigById' : ActorMethod<[Principal], [] | [BuildConfig]>,
   'getMyBuildConfigs' : ActorMethod<[], Array<BuildConfig>>,
+  'getMyVerificationStats' : ActorMethod<[], Stats>,
   'getValidators' : ActorMethod<[], Array<Principal>>,
   'getVerificationByCanisterId' : ActorMethod<[Principal], [] | [Verification]>,
+  'getVerificationStats' : ActorMethod<[], Stats>,
   'getVerifications' : ActorMethod<[PaginationInfo], VerificationPagination>,
-  'getVerificationsStats' : ActorMethod<[], Stats>,
   'registerVerification' : ActorMethod<[RegisterVerification], Result>,
   'saveBuildConfig' : ActorMethod<[SaveBuildConfig], undefined>,
   'submitVerification' : ActorMethod<[SubmitVerification], undefined>,
