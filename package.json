@@ -1,6 +1,6 @@
 {
   "name": "@psychedelic/cover",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "Cover Software Development Kit",
   "main": "./lib/cjs/index",
   "module": "./lib/esm/index",
@@ -41,7 +41,7 @@
   ],
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.36",
-    "@types/jest": "^29.2.1",
+    "@types/jest": "^29.2.2",
     "@types/node": "^14.18.33",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
